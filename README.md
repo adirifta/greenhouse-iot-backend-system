@@ -71,7 +71,7 @@ Sebuah sistem backend untuk manajemen IoT rumah kaca yang terintegrasi dengan se
 - Dotenv: Environment variables management
 
 ## Prerequisites
-###Software yang Diperlukan
+### Software yang Diperlukan
 - Node.js (v18 atau lebih tinggi)
 - MySQL (via Laragon atau standalone)
 - Mosquitto MQTT Broker
