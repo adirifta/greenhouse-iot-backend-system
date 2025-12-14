@@ -1,0 +1,23 @@
+{"level":"info","message":"MySQL database connection established successfully.","service":"greenhouse-backend","timestamp":"2025-12-14 16:32:53"}
+{"level":"info","message":"MySQL database synchronized","service":"greenhouse-backend","timestamp":"2025-12-14 16:32:53"}
+{"level":"info","message":"Sample sensor data created","service":"greenhouse-backend","timestamp":"2025-12-14 16:32:53"}
+{"level":"info","message":"Sample device logs created","service":"greenhouse-backend","timestamp":"2025-12-14 16:32:53"}
+{"level":"info","message":"Greenhouse Backend Server running on port 3000","service":"greenhouse-backend","timestamp":"2025-12-14 16:32:53"}
+{"level":"info","message":"Environment: development","service":"greenhouse-backend","timestamp":"2025-12-14 16:32:53"}
+{"level":"info","message":"Connected to MQTT broker at mqtt://localhost:1883","service":"greenhouse-backend","timestamp":"2025-12-14 16:32:53"}
+{"level":"info","message":"POST /api/device-control","service":"greenhouse-backend","timestamp":"2025-12-14 16:33:09"}
+{"level":"info","message":"Published to greenhouse/control/fan_1: {\"deviceId\":\"fan_1\",\"command\":\"ON\",\"timestamp\":\"2025-12-14T09:33:09.558Z\"}","service":"greenhouse-backend","timestamp":"2025-12-14 16:33:09"}
+{"level":"info","message":"Device control command logged to database: fan_1 -> ON","service":"greenhouse-backend","timestamp":"2025-12-14 16:33:09"}
+{"level":"info","message":"Device control command sent via MQTT: fan_1 -> ON","service":"greenhouse-backend","timestamp":"2025-12-14 16:33:09"}
+{"level":"info","message":"POST /api/device-control","service":"greenhouse-backend","timestamp":"2025-12-14 16:33:23"}
+{"level":"info","message":"Published to greenhouse/control/fan_1: {\"deviceId\":\"fan_1\",\"command\":\"ON\",\"timestamp\":\"2025-12-14T09:33:23.409Z\"}","service":"greenhouse-backend","timestamp":"2025-12-14 16:33:23"}
+{"level":"info","message":"Device control command logged to database: fan_1 -> ON","service":"greenhouse-backend","timestamp":"2025-12-14 16:33:23"}
+{"level":"info","message":"Device control command sent via MQTT: fan_1 -> ON","service":"greenhouse-backend","timestamp":"2025-12-14 16:33:23"}
+{"level":"info","message":"POST /api/device-control","service":"greenhouse-backend","timestamp":"2025-12-14 16:33:28"}
+{"level":"info","message":"Published to greenhouse/control/fan_1: {\"deviceId\":\"fan_1\",\"command\":\"ON\",\"timestamp\":\"2025-12-14T09:33:28.524Z\"}","service":"greenhouse-backend","timestamp":"2025-12-14 16:33:28"}
+{"level":"info","message":"Device control command logged to database: fan_1 -> ON","service":"greenhouse-backend","timestamp":"2025-12-14 16:33:28"}
+{"level":"info","message":"Device control command sent via MQTT: fan_1 -> ON","service":"greenhouse-backend","timestamp":"2025-12-14 16:33:28"}
+{"level":"info","message":"POST /api/sensor-data","service":"greenhouse-backend","timestamp":"2025-12-14 16:33:39"}
+{"level":"info","message":"Sensor data stored successfully: temperature_sensor_1","service":"greenhouse-backend","timestamp":"2025-12-14 16:33:39"}
+{"level":"info","message":"POST /api/sensor-data","service":"greenhouse-backend","timestamp":"2025-12-14 16:33:54"}
+{"level":"info","message":"Sensor data stored successfully: temperature_sensor_1","service":"greenhouse-backend","timestamp":"2025-12-14 16:33:54"}
