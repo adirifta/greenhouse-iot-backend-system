@@ -126,9 +126,226 @@ json
   "timestamp": "2024-01-15T10:30:00Z"
 }
 ```
-Field Requirements:
-| Fitur | Type | Status |
-|------|--------|
-| API Sensor | ✅ |
-| Auth JWT | ⏳ |
-| soilMoisture | ❌ |
+
+GET /api/sensor-data
+
+Mengambil data sensor dengan filtering.
+
+```bash
+GET /api/sensor-data?sensorId=temperature_sensor_1&startDate=2024-01-01&limit=10
+```
+
+Response (200):
+```bash
+json
+{
+  "status": "success",
+  "count": 10,
+  "data": [
+    {
+      "id": 1,
+      "sensorId": "temperature_sensor_1",
+      "temperature": 25.5,
+      "humidity": 60.5,
+      "timestamp": "2024-01-15T10:30:00Z"
+    }
+  ],
+  "pagination": {
+    "page": 1,
+    "limit": 10,
+    "totalItems": 150,
+    "totalPages": 15
+  }
+}
+```
+
+### Device Control
+POST /api/device-control
+Mengirim perintah kontrol ke perangkat IoT via MQTT.
+
+Request:
+```bash
+POST /api/device-control
+Content-Type: application/json
+```
+
+Body:
+```bash
+json
+{
+  "deviceId": "fan_1",
+  "command": "ON"
+}
+```
+
+Response (Success - 200):
+```bash
+json
+{
+  "status": "success",
+  "message": "Command sent successfully",
+  "data": {
+    "deviceId": "fan_1",
+    "command": "ON",
+    "timestamp": "2024-01-15T10:30:00Z"
+  }
+}
+```
+
+Response (Error - 500):
+```bash
+json
+{
+  "status": "error",
+  "message": "MQTT broker is not connected"
+}
+```
+
+GET /api/device-logs
+
+Mengambil log perintah perangkat.
+
+Response (200):
+```bash
+json
+{
+  "status": "success",
+  "count": 5,
+  "data": [
+    {
+      "id": 1,
+      "deviceId": "fan_1",
+      "command": "ON",
+      "status": "SUCCESS",
+      "topic": "greenhouse/control/fan_1",
+      "timestamp": "2024-01-15T10:30:00Z"
+    }
+  ]
+}
+```
+
+### System Health
+
+GET /api/status
+Memeriksa status sistem dan koneksi services.
+
+Request:
+
+GET /api/status
+Response (200):
+
+```bash
+json
+{
+  "status": "operational",
+  "timestamp": "2024-01-15T10:30:00Z",
+  "services": {
+    "backend": "operational",
+    "database": "connected",
+    "mqtt": "connected"
+  },
+  "system": {
+    "uptime": 3600,
+    "memoryUsage": {
+      "rss": 102850560,
+      "heapTotal": 75644928,
+      "heapUsed": 58122328,
+      "external": 10245632
+    },
+    "nodeVersion": "v18.15.0",
+    "platform": "linux"
+  }
+}
+```
+
+Status Levels:
+- operational: Semua services berjalan normal
+- degraded: Satu atau lebih services mengalami masalah
+- error: System mengalami error yang signifikan
+
+GET /health
+
+Simple health check untuk load balancer/monitoring.
+
+Response (200):
+``` bash
+json
+{
+  "status": "OK",
+  "timestamp": "2024-01-15T10:30:00Z"
+}
+```
+
+### MQTT Integration
+Topic Structure
+
+greenhouse/control/{device_id}
+
+#### Message Format
+```bash
+json
+{
+  "deviceId": "fan_1",
+  "command": "ON",
+  "timestamp": "2024-01-15T10:30:00Z"
+}
+```
+
+### Testing MQTT
+Subscribe ke Topic
+```bash
+# Subscribe ke semua topic greenhouse
+mosquitto_sub -h localhost -p 1883 -t "greenhouse/#" -v
+
+# Subscribe ke topic spesifik device
+mosquitto_sub -h localhost -p 1883 -t "greenhouse/control/fan_1" -v
+```
+
+### Publish Manual
+```bash
+# Publish test message
+mosquitto_pub -h localhost -p 1883 -t "greenhouse/control/fan_1" \
+  -m '{"deviceId":"fan_1","command":"ON","timestamp":"2024-01-15T10:30:00Z"}'
+```
+
+### Test dengan API
+```bash
+curl -X POST http://localhost:3000/api/device-control \
+  -H "Content-Type: application/json" \
+  -d '{"deviceId":"fan_1","command":"ON"}'
+```
+
+### MQTT QoS
+- QoS 1: At least once delivery
+- Retained Messages: Tidak digunakan
+- Clean Session: Ya
+
+### Testing
+Menjalankan Test
+Semua Test
+```bash
+npm test
+```
+
+#### Test Spesifik
+```bash
+# Test sensor saja
+npm run test:sensor
+
+# Test device saja
+npm run test:device
+
+# Test status saja
+npm run test:status
+```
+
+#### Test dengan Coverage
+```bash
+npm run test:coverage
+# Buka coverage/lcov-report/index.html untuk melihat report
+```
+
+#### Watch Mode
+```bash
+npm run test:watch
+```
